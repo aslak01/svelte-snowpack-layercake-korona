@@ -1,0 +1,31 @@
+{
+	"regions": [
+		{ "region": "Europe", "norsk": "Europa" },
+		{ "region": "Asia", "norsk": "Asia" },
+		{ "region": "Americas", "norsk": "Amerika" },
+		{ "region": "Africa", "norsk": "Afrika" },
+		{ "region": "Oceania", "norsk": "Oseania" }
+	],
+	"subregions": [
+		{ "subregion": "Southern Asia", "norsk": "Sør-Asia" },
+		{ "subregion": "Southern Europe", "norsk": "Sør-Europa" },
+		{ "subregion": "Northern Africa", "norsk": "Nord-Afrika" },
+		{ "subregion": "Middle Africa", "norsk": "Sentral-Afrika" },
+		{ "subregion": "Caribbean", "norsk": "Karibia" },
+		{ "subregion": "South America", "norsk": "Sør-Amerika" },
+		{ "subregion": "Western Asia", "norsk": "Vest-Asia" },
+		{ "subregion": "Australia and New Zealand", "norsk": "Australia og Ny-Zeeland" },
+		{ "subregion": "Western Europe", "norsk": "Vest-Europa" },
+		{ "subregion": "Eastern Europe", "norsk": "Øst-Europa" },
+		{ "subregion": "Central America", "norsk": "Sentral-Amerika" },
+		{ "subregion": "Western Africa", "norsk": "Vest-Afrika" },
+		{ "subregion": "Southern Africa", "norsk": "Sør-Afrika" },
+		{ "subregion": "South-Eastern Asia", "norsk": "Sørøst-Asia" },
+		{ "subregion": "Eastern Africa", "norsk": "Øst-Africa" },
+		{ "subregion": "Northern America", "norsk": "Nord-Amerika" },
+		{ "subregion": "Eastern Asia", "norsk": "Øst-Asia" },
+		{ "subregion": "Northern Europe", "norsk": "Nord-Europa" },
+		{ "subregion": "Melanesia", "norsk": "Melanesia" },
+		{ "subregion": "Central Asia", "norsk": "Sentral-Asia" }
+	] 
+}
