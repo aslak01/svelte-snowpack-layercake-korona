@@ -1,61 +1,39 @@
 <script>
-// 	import { SpinLine } from 'svelte-loading-spinners';
-	// import Coronavirus32 from "carbon-icons-svelte/lib/Coronavirus32";
-// 	
-// 	import { getData } from './utils/fetch.js'
-// 	import { getData2 } from './utils/fetch1.js';
-// 
-// 	const response3 = getData("https://api.apify.com/v2/key-value-stores/3qlmMu1XN2ZLoVIQt/records/LATEST?disableRedirect=true");
+	// small hack to get immerjs working.
+	window.process = {
+		env: {
+			NODE_ENV: 'production',
+		},
+	};
+	import { minidaySettings } from './utils/store.js';
+	import { writable, get, derived } from 'svelte/store';
+	import Charts from './Charts.svelte';
 	
-	// todo:
-	// solid line at 0 in apple chart
-	// error handling apple chart
-	// organising minidays by insidens
-	// disable dropdown on countryadd
-	// la bruker søke på et land som finnes i defaultsene uten at det kræsjer
-	// fikse bugg i at max ikke reguleres ned når et miniday lukkes
+	let highlightColor = $minidaySettings.color;
 	
-	// import ChartsJHday from './ChJH.day.svelte';
-	// import ChartsJHtot from './ChJH.tot.svelte';
-	// import ChartsApple from './ChApple.svelte';
-	// import ChartsFHI from './ChFHI.svelte';
 	
-	// import CountrySearch from './CountrySearch.svelte';
-	// 
-	const highlightColor = "black"
-	// 
-	// let selectedValue = {label: "Norge", value: "nor"}
-	// import ChartsKart1 from './ChKart.svelte';
 	
-	// let request
-	// 
-	// $: selectedValue ? request = selectedValue.value : request = "Norway"
-	// 
-	// $: response = getData2("https://disease.sh/v3/covid-19/historical/" + request + "?lastdays=all")
-	// $: response2 = getData("https://disease.sh/v3/covid-19/apple/countries/" + request + "/All");
-	 import MiniJHday from './MiniJHday.svelte';
-
+	
+	
+	
+	
 </script>
 
 <main>
 <header>
 <article class="text">
-	<h1 class="header">	
-		<!-- <Coronavirus32 
-			style="fill: {highlightColor}"
-		/> -->
-		Korona&shy;virus i </h1>
+	<h1 class="header">Corona virus in the world</h1>
 </article>
 </header>
 
 <section>
-	<MiniJHday {highlightColor} />
+	<Charts />
 </section>
  
 	 <footer>
 		 <article class="text">
 			 <p><span>
-				 Denne siden holdes automatisk oppdatert med de siste tallene fra <a href="https://coronavirus.jhu.edu">Johns Hopkins-databasen (JHUCSSE)</a>. De samler tallene sine fra diverse offentlige databaser som ikke alltid er helt enige med hverandre. Mindre avvik kan derfor forekomme, men tendensene er som regel de samme. JHUCSSE- og Apple-tall via <a href="http://disease.sh">disease.sh</a>.
+				 This web site is automatically updated with numbers from the <a href="https://coronavirus.jhu.edu">Johns Hopkins database (JHUCSSE)</a>. They collect data from various public databases, which are not always in agreement one with the other, which sometimes leads to discrepancies and erroneous data.
 			 </span></p>
 		 </article>
 	 </footer>
@@ -88,6 +66,7 @@ section, header, footer {
 	
 	h1.header {
 		display: inline;
+		font-size: 2rem;
 	}
 	
 	article.text {
@@ -99,15 +78,14 @@ section, header, footer {
 	padding-top: 3rem;
 	}
 	a {
-		/* color: #fae955; */
-		color: #ded68c;
+		color: hsl(123, 50%, 50%);
 		text-decoration: none;
+	}
+	a:visited {
+		color: hsl(123, 50%, 50%);
 	}
 	a:hover {
 		text-decoration: underline;
-	}
-	a:visited {
-		color: #c7bfbf;
 	}
 
 </style>

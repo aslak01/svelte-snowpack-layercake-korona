@@ -48,3 +48,5 @@ export function uniqueByKeepLast(data, key) {
 export function norskTall(tall) {
 	return new Intl.NumberFormat("no-NO").format(tall)
 }
+
+export const norskDato = d => new Date(d).toLocaleDateString('no-NO', {day: '2-digit', month: '2-digit', year: '2-digit'});

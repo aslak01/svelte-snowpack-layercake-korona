@@ -1,220 +1,236 @@
 <script>
-	import { onMount } from 'svelte';
-	import { minidayStore, minidaySettings, minidayCopy} from './utils/store.js';
-	import Minidays from './components/Minidays.svelte';
-	import { uniqueByKeepLast } from './utils/functions.js'
-	import Gjennomsnitter from './components/Gjennomsnitter.svelte'
+	// MINIDAYS
+	import { onMount, onDestroy } from 'svelte';
+	import { minidayStore, minidaySettings, minidayCopy } from './utils/store.js';
+	import { LayerCake, ScaledSvg, uniques, Html } from 'layercake';
+	import { scaleBand } from 'd3-scale';
 	
-	import CountryMultiselect from './components/CountryMultiselect.svelte'
-
-	import Select from 'svelte-select'
-	import { countries as items, regions } from './utils/searchcountries.js'
-	import norskeRegioner from './data/countries/no_regions.json'
-	export let mainSelection;
-
-	let selectedValue = [];
-
-	export let highlightColor;	
-	export let range = 7;
-	export let start = 0;
-	export let end = 1;
+	import norsk from './data/countries/countries_no.json'
 	
-	let subregions = false;
+	import { computeMovingAverage, cutData } from './utils/functions.js'
+	
+	import Line from './components/charts/Line.svelte';
+	import Area from './components/charts/Area.svelte';	
+	import Label from './components/charts/Label.svelte';	
+	import Tooltip from './components/charts/ShTt2.svelte'
+	
+	export let data
+	export let cData
+	export let country
+	$: range = $minidaySettings.range;
+	$: start = $minidaySettings.cut.start;
+	$: end = $minidaySettings.cut.end;
+	let highlightColor = $minidaySettings.color;
+	$: skala = $minidaySettings.skala;
 
-	let skala = 3
-	const skalaSelect = [
-		{ label: "Individuell absolutt skala", value: 1 },
-		{ label: "Delt absolutt skala", value: 2 },
-		{ label: "Delt relativ skala (per million)", value: 3 },
-	]
-	let maximum
-	let pMmax
-	
-	$: maximum = Object.values($minidayStore).map(v => v.aMax)
-	$: pMmax = Object.values($minidayStore).map(v => v.pMmax)
-	
-	$: $minidaySettings.aMax = maximum[0] != undefined ? Math.max.apply(Math, maximum) : undefined
-	$: $minidaySettings.pMax = pMmax[0] != undefined ? Math.max.apply(Math, pMmax) : undefined
-	$: $minidaySettings.skala = skala
-	$: $minidaySettings.navnOversatt = true
-	
-	let defaults = [{label: "Norge", value: "nor"}, {label: "Storbritannia", value: "gbr"}, {label: "USA", value: "usa"}, {label: "Tyskland", value: "deu"}, {label: "Frankrike", value: "fra"}]
+	let index;
 
-	onMount(()=>{
-		selectedValue.push(...defaults)
+	let max
+	let shavedData
+	let currAvgIndex
+	let MovingAverage;
+
+	let avgKey = 'new'
+	let yKey = 'avg'
+	let xKey = 'date'
+	let pMilKey = 'pmil'
+
+	const strokeWidth = 1
+	const stroke = highlightColor;
+	
+	const insidens = function (avg, pop) {
+		return Number.parseFloat(((avg / pop)).toPrecision(3)*1000000).toFixed()
+	}
+	const oversettelse = norsk.filter(i => i.alpha3 === country)
+	
+	
+	let population
+	$: population = cData.population
+	
+	$: MovingAverage = computeMovingAverage(data.data.new, range, xKey, avgKey, yKey);
+	$: shavedData = cutData(MovingAverage, start, end)
+	$: currAvgIndex = shavedData.map(d => d[yKey] !== undefined).lastIndexOf(true)
+	$: currAvg = currAvgIndex > 0 ? shavedData[currAvgIndex][yKey] : false
+	
+	$: max = Math.max.apply(Math, shavedData.map(d => d[yKey]))
+	
+	$: updShv = shavedData.map(v => ({
+		...v, pmil: parseInt(insidens(v[yKey], population))
+		}))
+	
+	
+	$: pMmax = Math.max.apply(Math, shavedData.map(d => insidens(d[yKey], population)))
+	
+	
+	$: mvUniqueDates = uniques(shavedData, xKey)
+
+	$: currInsidens = insidens(currAvg, population)
+	
+	let recentData
+	$: recentData = { id: country, aMax: max, pMmax }
+	
+
+	$: $minidayStore[country] = recentData
+	$: $minidaySettings.max = []
+	$: $minidaySettings.max.push(max)
+
+
+	onDestroy( () => {
+		console.log('Fjerna ', country)
+		delete $minidayStore[country]
+		// $minidayStore = $minidayStore.filter((n) => {return n.id != country})
 	})
 	
-	const oversettelse = function(region, sub) {
-		return sub ? norskeRegioner.subregions.filter(i => i.subregion === region) : norskeRegioner.regions.filter(i => i.region === region)
-	}
-
-	const activeClFilter = function (region, sub) {
-		let result = regions.data.filter(obj => {
-			if (sub) {
-				return obj.subregion === region
-			}
-			return obj.region === region
-		})
-		// console.log(result === selectedValue)
-		return result === selectedValue
-	}	
-	
-	const selectRegion = function (region, sub) {
-		let result = regions.data.filter(obj => {
-			if (sub) {
-				return obj.subregion === region
-			}
-			return obj.region === region
-		})
-		selectedValue = []
-		selectedValue = result
-	}
-	const selectWorld = function () {
-		selectedValue = []
-		let result = regions.data.map(obj => {
-			return obj.value
-		})
-		let uniq = [...new Set(result)];
-		console.log(uniq)
-		selectedValue = uniq
-	}
-	
-	const unsortedSubr = regions.meta.subregions
-	
-	// sort by 2nd word
-	const sorted = unsortedSubr.sort((a, b) => {
-		const s1 = a.split(' ')[1],
-					s2 = b.split(' ')[1];
-		return (s1 || a).localeCompare(s2 || b)
-	});
-	
-
-
 </script>
 
-
-
-<article class="text">
-	<h2 style="margin:0;padding:0;">Sammenlign land</h2>
-	
-		<p><span>Definer tidsramme og periode for glidende gjennomsnitt med kontrollene over.</span></p>
-		<div class="control-section">
-			<Gjennomsnitter bind:range/>
-		</div>
-		<label for="skala">Skala: 
-			<select id="skala" bind:value={skala}>
-				{#each skalaSelect as {label, value}}
-					<option value={value}>{label}</option>
-				{/each}
-			</select>
-		</label>
-		<label>Oversatt navn: <input type="checkbox" bind:checked={$minidaySettings.navnOversatt}></label>
-		<div class="selectregions">
-			Velg et kontinent for sammenligning:
-			{#each regions.meta.regions as region} 
-			<button class:active={(activeClFilter(region, false))} on:click={() => selectRegion(region, false)}>
-				{oversettelse(region, false)[0].norsk}
-			</button>
-			{/each}
-			<button on:click={() => selectWorld()}>Verden</button>
-			eller legg til/fjern land selv i boksen under grafene. <br>
-			<div class="subregions">
-				{#if !subregions}
-					<button on:click={() => subregions = !subregions }>
-						Vis regioner
-					</button>
-				{/if}
-				{#if subregions}
-				Velg en region:
-				{#each sorted as region} 
-					<button class:active={(activeClFilter(region, true))} on:click={() => selectRegion(region, true)}>
-						{oversettelse(region, true)[0].norsk}
-						<!-- {region} -->
-					</button>
-				{/each}
-				<button on:click={() => subregions = !subregions } style="cursor:pointer">X</button>
+<article class="enhet">
+	<div class="chart">
+		<div class="chart-container">
+			{#if skala == 1}
+				<LayerCake
+					percentRange={true}
+					x='date'
+					y='avg'
+					data={shavedData}
+					yDomain={[0, max]}
+					xDomain={mvUniqueDates}
+					xScale={scaleBand()}
+				>
+					<ScaledSvg>
+						<Line
+							{stroke}
+							{strokeWidth}
+						/>
+						<Area 
+							fill={stroke}
+						/>
+					</ScaledSvg>
+					<Html>
+						<Label
+							labelValue={currAvg}
+						/>
+						<Tooltip 
+							dataset={updShv}
+						/> 
+					</Html>
+				</LayerCake>
+				{:else if skala == 2}
+				{#await $minidaySettings.aMax}
+					<LayerCake
+						percentRange={true}
+						x={xKey}
+						y={yKey}
+						data={shavedData}
+						yDomain={[0, $minidaySettings.aMax]}
+						xDomain={mvUniqueDates}
+						xScale={scaleBand()}
+					>
+						<ScaledSvg>
+							<Line
+								{stroke}
+								{strokeWidth}
+							/>
+							<Area 
+								fill={stroke}
+							/>
+						</ScaledSvg>
+						<Html>
+							<Label
+								labelValue={currAvg}
+							/>
+							<Tooltip 
+								dataset={updShv}
+							/> 
+						</Html>
+					</LayerCake>
+				{/await}
+				{:else}
+				{#await updShv}...{:then updShv}
+				{#await $minidaySettings.pMax}...{:then MdPmax}
+					<LayerCake
+						percentRange={true}
+						x={xKey}
+						y={pMilKey}
+						data={updShv}
+						yDomain={[0, MdPmax]}
+						xDomain={mvUniqueDates}
+						xScale={scaleBand()}
+					>
+						<ScaledSvg>
+							<Line
+								{stroke}
+								{strokeWidth}
+							/>
+							<Area 
+								fill={stroke}
+							/>
+						</ScaledSvg>
+						<Html>
+							<Label
+								labelValue={currInsidens}
+							/>
+							<Tooltip 
+								dataset={updShv}
+							/> 
+						</Html>
+					</LayerCake>
+				{/await}
+				{/await}
 			{/if}
 		</div>
-		</div>
-
-		<!-- broken: -->		
-		<!-- <label>Sortert: <input type="checkbox" bind:checked={isSorted}></label> -->
-</article>
-
-{#if selectedValue}
-	<section class="minidays">
-		{#each selectedValue as country, index (country.value)}
-			<Minidays {range} {start} {end} country={country.value} {highlightColor} {index} {skala} />
-		{/each}
-	</section>
-{/if}
-
-<!-- debug buttons -->
-<!-- <button on:click={console.log($minidayStore)}>MinidayStore</button>
-<button on:click={console.log($minidaySettings)}>minidaySettings</button> -->
-
-<article class="text" style="padding-top:1.5rem">
-	<p><span>Legg til eller fjern land, du kan søke etter land på norsk, engelsk, tysk og fransk.</span></p>
-
-	<!-- <CountryMultiselect /> -->
-	<div class="themed">
-		<Select
-			{items}
-			bind:selectedValue
-			isMulti={true}
-			listPlacement='bottom'
-		></Select>
+	</div>
+	<div class="text">
+		{#if $minidaySettings.navnOversatt}
+			<h3 class="name">{oversettelse[0].name}</h3>
+		{:else}
+			<h3 class="name">{cData.nativeName}</h3>
+		{/if}
+		<!-- <span class="insidens">{currInsidens}</span> -->
 	</div>
 </article>
 
 <style>
-	label {
-		font-size: .8rem;
+	.enhet {
+		position: relative;
+		width: 140px;
+		height: 100px;
+		margin: auto;
+		justify-content: center;
 	}
-.themed {
-	--itemColor: #333;
-	--itemIsActiveColor: #333;
-	color: #333;
-	--inputColor: white;
-	--background: transparent;
-}
-.minidays {
-	display: flex;
-	/* align-items: center; */
-	height: 100%;
-	width: 100%;
-	flex-flow: row wrap;
-	flex-wrap: wrap;
-	justify-items: space-evenly safe;
-	padding: 1rem 0;
-}
+	.chart {
+		position: relative;
+		width: 90px;
+		height: 60px;
+		padding-top: 0;
+		z-index: 10;
+		margin-left: 5px;
+	}
+	.chart-container {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+	.text {
+		height: 30px;
+		position: relative;
+		width: 100%;
+	}
+	.name {
+		position: absolute;
+		top: 5px;
+		left: 5px;
+		display: block;
+		font-weight: normal;
+		font-size: .8rem;
+		margin: 0;
+		/* margin-left: 5px; */
 
-.selectregions {
-	font-size: .8rem;
-	margin-top: .5rem;
-}
-.subregions {
-	font-size: .7rem;
-}
-
-button {
-	margin-right: .3rem;
-	margin-bottom: .3rem;
-	display: inline-block;
-	padding: .3rem;
-	cursor: pointer;
-	background: #333;
-	color: ghostwhite;
-	border-radius: 3px;
-	border: 0;
-}
-button:hover {
-	background: #ffa600;
-	text-decoration: none;
-}
-button.active {
-	background: ghostwhite;
-	color: black;
-}
-	
+		/* white-space: nowrap; */
+	}
+	.insidens {
+		font-size: .7rem;
+		position: absolute;
+		top: .8rem;
+		right: 0;
+	}
 </style>

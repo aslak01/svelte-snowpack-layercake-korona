@@ -1,8 +1,5 @@
 <script>
-
-	export let min = 1
-	export let max = 60
-	export let range
+	import {minidaySettings} from '../utils/store.js';
 
 </script>
 
@@ -11,43 +8,45 @@
 
 <div class="gjennomsnitter">
 	<label>
-		<span>Endre periode for glidende gjennomsnitt:<span>
+		Endre periode for glidende gjennomsnitt:
+		<input type="range" min="1" max="60" bind:value={$minidaySettings.range} />
+</label>
+
 		<nav>
-			<a 
-				class:active={(range == 1)}
-				on:click={() => range = 1}>0</a>
-			<a
-				class:active={(range == 7)}
-			 on:click={() => range = 7}>1 uke</a>
-			<a
-			class:active={(range == 30)}
-			on:click={() => range = 30}>1 mnd</a>
-			<a
-			class:active={(range == 60)}
-			on:click={() => range = 60}>2 mnd</a>
+			<button 
+				class:active={($minidaySettings.range == 1)}
+				on:click={() => $minidaySettings.range = 1}>0</button>
+			<button
+				class:active={($minidaySettings.range == 7)}
+			 on:click={() => $minidaySettings.range = 7}>1 uke</button>
+			<button
+			class:active={($minidaySettings.range == 30)}
+			on:click={() => $minidaySettings.range = 30}>1 mnd</button>
+			<button
+			class:active={($minidaySettings.range == 60)}
+			on:click={() => $minidaySettings.range = 60}>2 mnd</button>
 		</nav>
-		<input type="range" min="1" max="60" bind:value={range} />
-	</label>
 </div>
 
 <style>
 	nav {
 		float: right;
 	}
-	a {
+	button {
 		display: inline-block;
-		padding: .3rem;
+		padding: .2rem;
 		cursor: pointer;
 		background: #333;
 		color: ghostwhite;
 		border-radius: 3px;
 		line-height: 1rem;
+		border: 0;
 	}
-	a:hover {
+	button:hover {
 		background: #ffa600;
 		text-decoration: none;
 	}
-	a.active {
+	button.active {
 		background: ghostwhite;
 		color: black;
 	}

@@ -1,15 +1,24 @@
 import { writable, derived } from "svelte/store";
-import { uniqueByKeepLast } from './functions.js'
-
+import { uniqueByKeepLast } from "./functions.js";
 
 export const absoluteMax = writable([]);
 export const pMilMax = writable([]);
 export const minidayStore = writable({});
-export const minidaySettings = writable({});
-export const minidayCopy = derived(
-  minidayStore,
-  $minidayStore => uniqueByKeepLast($minidayStore, itm => itm.id)
+
+export const minidayCopy = derived(minidayStore, ($minidayStore) =>
+  uniqueByKeepLast($minidayStore, (itm) => itm.id)
 );
 
-
-
+export const minidaySettings = writable({
+  range: 7,
+  start: 0,
+  end: 1,
+  skala: 3,
+  color: "black",
+  navnOversatt: true,
+  cut: { start: 0, end: 1 },
+  selectedValue: [],
+  pMax: null,
+  aMax: null,
+});
+export const minidayCharts = writable([]);
