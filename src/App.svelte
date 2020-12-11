@@ -32,9 +32,9 @@
  
 	 <footer>
 		 <article class="text">
-			 <p><span>
-				 This web site is automatically updated with numbers from the <a href="https://coronavirus.jhu.edu">Johns Hopkins database (JHUCSSE)</a>. They collect data from various public databases, which are not always in agreement one with the other, which sometimes leads to discrepancies and erroneous data.
-			 </span></p>
+			 <p>
+				 Data is automatically updated with numbers from the <a href="https://coronavirus.jhu.edu">Johns Hopkins database (JHUCSSE)</a>. They collect data from various public databases, which are not always in agreement one with the other, which sometimes leads to discrepancies and erroneous data.
+			 </p>
 		 </article>
 	 </footer>
 
@@ -86,6 +86,9 @@ section, header, footer {
 	}
 	a:hover {
 		text-decoration: underline;
+	}
+	footer p {
+		font-size: .7rem;
 	}
 
 </style>

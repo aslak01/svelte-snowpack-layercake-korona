@@ -35,7 +35,7 @@
 
 
 <Controls>
-	{#if $minidayCharts[0]}
+	{#if $minidayCharts}
 	<section class="minidays">
 			{#each $minidayCharts as country (country.value)}
 				<Minidays country={country.value} {highlightColor} />

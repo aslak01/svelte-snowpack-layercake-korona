@@ -5,24 +5,24 @@
     "test": "web-test-runner \"src/**/*.test.js\""
   },
   "dependencies": {
-    "svelte": "^3.24.0"
+    "svelte": "^3.31.0"
   },
   "devDependencies": {
-    "@snowpack/plugin-dotenv": "^2.0.4",
-    "@snowpack/plugin-svelte": "^3.3.0",
-    "@snowpack/web-test-runner-plugin": "^0.1.4",
+    "@snowpack/plugin-dotenv": "^2.0.5",
+    "@snowpack/plugin-svelte": "^3.3.1",
+    "@snowpack/web-test-runner-plugin": "^0.1.5",
     "@testing-library/svelte": "^3.0.0",
-    "@web/test-runner": "^0.9.7",
+    "@web/test-runner": "^0.9.13",
     "carbon-icons-svelte": "^10.21.0",
     "chai": "^4.2.0",
     "d3-format": "^2.0.0",
     "d3-quadtree": "^2.0.0",
     "d3-scale": "^3.2.3",
     "d3-shape": "^2.0.0",
-    "layercake": "^4.0.2",
-    "rollup": "^2.33.3",
-    "snowpack": "^2.17.1",
-    "svelte-select": "^3.14.1",
+    "layercake": "^4.0.3",
+    "rollup": "^2.34.2",
+    "snowpack": "^2.18.2",
+    "svelte-select": "^3.14.2",
     "yootils": "^0.0.17"
   }
 }
