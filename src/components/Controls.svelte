@@ -61,18 +61,8 @@
 <article class="text">
 	<h2 style="margin:0;padding:0;">Sammenlign land</h2>
 	
-		<p><span>Definer tidsramme og periode for glidende gjennomsnitt med kontrollene over.</span></p>
-		<div class="control-section">
-			<Gjennomsnitter />
-		</div>
-		<label for="skala">Skala: 
-			<select id="skala" bind:value={$minidaySettings.skala}>
-				{#each skalaSelect as {label, value}}
-					<option value={value}>{label}</option>
-				{/each}
-			</select>
-		</label>
-		<label>Oversatt navn: <input type="checkbox" bind:checked={$minidaySettings.navnOversatt}></label>
+		<!-- <p><span>Definer tidsramme og periode for glidende gjennomsnitt med kontrollene over.</span></p> -->
+
 		<div class="selectregions">
 			Velg et kontinent for sammenligning:
 			{#each regions.meta.regions as region} 
@@ -80,8 +70,8 @@
 				{oversettelse(region, false)[0].norsk}
 			</button>
 			{/each}
-			<button on:click={() => selectWorld()}>Verden</button>
-			eller legg til/fjern land selv i boksen under grafene. <br>
+			<!-- <button on:click={() => selectWorld()}>Verden</button> -->
+			<!-- eller legg til/fjern land selv i boksen under grafene. <br> -->
 			<div class="subregions">
 				{#if !subregions}
 					<button on:click={() => subregions = !subregions }>
@@ -100,6 +90,17 @@
 			{/if}
 		</div>
 		</div>
+		<div class="control-section">
+			<Gjennomsnitter />
+		</div>
+		<label for="skala">Skala: 
+			<select id="skala" bind:value={$minidaySettings.skala}>
+				{#each skalaSelect as {label, value}}
+					<option value={value}>{label}</option>
+				{/each}
+			</select>
+		</label>
+		<label>Oversatt navn: <input type="checkbox" bind:checked={$minidaySettings.navnOversatt}></label>
 
 		<!-- broken: -->		
 		<!-- <label>Sortert: <input type="checkbox" bind:checked={isSorted}></label> -->
@@ -107,12 +108,12 @@
 
 <slot></slot>
 
-<article class="text" style="padding-top:1.5rem">
+<!-- <article class="text" style="padding-top:1.5rem">
 	<p><span>Legg til eller fjern land, du kan søke etter land på norsk, engelsk, tysk og fransk.</span></p>
 
 	<!-- <CountryMultiselect /> -->
-	{#await $minidayCharts[0]}
-	<div class="themed">
+	<!-- {#await $minidayCharts[0]} -->
+	<!-- <div class="themed">
 		<Select
 			{items}
 			bind:$minidayCharts
@@ -121,7 +122,7 @@
 		></Select>
 	</div>
 	{/await}
-</article>
+</article> -->
 
 <style>
 label {

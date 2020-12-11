@@ -22,3 +22,11 @@ export const minidaySettings = writable({
   aMax: null,
 });
 export const minidayCharts = writable([]);
+
+let id = 0;
+let newId = () => {
+  id++;
+  return id;
+};
+
+let data = [{ id: newId(), value: "nor", pop: 0, aMax: 0, pMax: 0, data: [] }];

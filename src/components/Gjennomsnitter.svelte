@@ -7,11 +7,9 @@
 
 
 <div class="gjennomsnitter">
-	<label>
-		Endre periode for glidende gjennomsnitt:
-		<input type="range" min="1" max="60" bind:value={$minidaySettings.range} />
-</label>
+		<!-- <input type="range" min="1" max="60" bind:value={$minidaySettings.range} /> -->
 
+		<span>Endre periode for glidende gjennomsnitt:</span>
 		<nav>
 			<button 
 				class:active={($minidaySettings.range == 1)}
@@ -30,7 +28,7 @@
 
 <style>
 	nav {
-		float: right;
+		/* float: right; */
 	}
 	button {
 		display: inline-block;
@@ -66,8 +64,12 @@
 	.gjennomsnitter {
 		display: inline-block;
 		min-width: 200px;
-		margin-bottom: 1rem;
+		margin-bottom: .3rem;
 	}
+	span {
+		font-size: .8rem;
+	}
+	/* 
 	input {
 		margin-top: 1rem;
 	}
@@ -137,6 +139,6 @@
 	}
 	input[type=range]:focus::-ms-fill-upper {
 		background: black;
-	}
+	} */
 	
 	</style>

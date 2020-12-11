@@ -35,18 +35,20 @@
 
 
 <Controls>
+	{#if $minidayCharts[0]}
 	<section class="minidays">
 			{#each $minidayCharts as country (country.value)}
 				<Minidays country={country.value} {highlightColor} />
 			{/each}
 	</section>
+	{/if}
 </Controls>
 
 
 <!-- debug buttons -->
-<button on:click={console.log($minidayStore)}>MinidayStore</button>
+<!-- <button on:click={console.log($minidayStore)}>MinidayStore</button>
 <button on:click={console.log($minidaySettings)}>minidaySettings</button>
-<button on:click={console.log($minidayCharts)}>minidayCharts</button>
+<button on:click={console.log($minidayCharts)}>minidayCharts</button> -->
 
 
 <style>
