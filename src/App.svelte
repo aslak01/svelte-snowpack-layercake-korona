@@ -1,22 +1,5 @@
 <script>
-	// small hack to get immerjs working.
-	window.process = {
-		env: {
-			NODE_ENV: 'production',
-		},
-	};
-	import { minidaySettings } from './utils/store.js';
-	import { writable, get, derived } from 'svelte/store';
 	import Charts from './Charts.svelte';
-	
-	let highlightColor = $minidaySettings.color;
-	
-	
-	
-	
-	
-	
-	
 </script>
 
 <main>

@@ -5,34 +5,25 @@
 	import Controls from './components/Controls.svelte';
 	
 	// todo select visitor's country dynamically
-
-	
 	
 	let maximum
 	let pMmax
 	$: maximum = Object.values($minidayStore).map(v => v.aMax);
 	$: pMmax = Object.values($minidayStore).map(v => v.pMmax);
 	
-	
-	let highlightColor = $minidaySettings.color;
-	// array of displayed countries
+		// array of displayed countries
 	$: $minidaySettings.aMax = maximum[0] != undefined ? Math.max.apply(Math, maximum) : undefined;
 	$: $minidaySettings.pMax = pMmax[0] != undefined ? Math.max.apply(Math, pMmax) : undefined;
 	$: $minidaySettings.navnOversatt = true;
 	
-	let defaults = [{label: "Norge", value: "nor"}, {label: "Storbritannia", value: "gbr"}, {label: "USA", value: "usa"}, {label: "Tyskland", value: "deu"}, {label: "Frankrike", value: "fra"}]
+	let defaults = [{label: "Norway", value: "nor"}, {label: "United Kingdom of Great Britain and Northern Ireland", value: "gbr"}, {label: "USA", value: "usa"}, {label: "Germany", value: "deu"}, {label: "France", value: "fra"}]
 
 	onMount(()=>{
 		$minidayCharts.push(...defaults);
 		$minidayCharts = $minidayCharts
 	})
 	
-console.log($minidayCharts)
 </script>
-
-
-
-
 
 
 <Controls>

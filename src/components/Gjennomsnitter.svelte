@@ -9,27 +9,24 @@
 <div class="gjennomsnitter">
 		<!-- <input type="range" min="1" max="60" bind:value={$minidaySettings.range} /> -->
 
-		<span>Endre periode for glidende gjennomsnitt:</span>
+		<span>Define running average:</span>
 		<nav>
 			<button 
 				class:active={($minidaySettings.range == 1)}
 				on:click={() => $minidaySettings.range = 1}>0</button>
 			<button
 				class:active={($minidaySettings.range == 7)}
-			 on:click={() => $minidaySettings.range = 7}>1 uke</button>
+			 on:click={() => $minidaySettings.range = 7}>1 wk.</button>
 			<button
 			class:active={($minidaySettings.range == 30)}
-			on:click={() => $minidaySettings.range = 30}>1 mnd</button>
+			on:click={() => $minidaySettings.range = 30}>1 mo.</button>
 			<button
 			class:active={($minidaySettings.range == 60)}
-			on:click={() => $minidaySettings.range = 60}>2 mnd</button>
+			on:click={() => $minidaySettings.range = 60}>2 mo.</button>
 		</nav>
 </div>
 
 <style>
-	nav {
-		/* float: right; */
-	}
 	button {
 		display: inline-block;
 		padding: .2rem;

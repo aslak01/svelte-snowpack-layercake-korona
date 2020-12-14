@@ -1,6 +1,6 @@
 <script>
 	import Gjennomsnitter from './Gjennomsnitter.svelte'
-	import Select from 'svelte-select'
+	// import Select from 'svelte-select'
 
 	import {minidaySettings, minidayCharts} from '../utils/store.js';
 	
@@ -14,9 +14,9 @@
 	// $: skala = $minidaySettings.skala;
 	
 	const skalaSelect = [
-		{ label: "Individuell absolutt skala", value: 1 },
-		{ label: "Delt absolutt skala", value: 2 },
-		{ label: "Delt relativ skala (per million)", value: 3 },
+		{ label: "Individual (absolute)", value: 1 },
+		{ label: "Shared absolute", value: 2 },
+		{ label: "Shared relative", value: 3 },
 	]
 	
 	
@@ -59,15 +59,15 @@
 
 
 <article class="text">
-	<h2 style="margin:0;padding:0;">Sammenlign land</h2>
+	<h2 style="margin:0;padding:0;">Compare countries</h2>
 	
 		<!-- <p><span>Definer tidsramme og periode for glidende gjennomsnitt med kontrollene over.</span></p> -->
 
 		<div class="selectregions">
-			Velg et kontinent for sammenligning:
+			Chose a continent:
 			{#each regions.meta.regions as region} 
 			<button on:click={() => selectRegion(region, false)}>
-				{oversettelse(region, false)[0].norsk}
+				{region}
 			</button>
 			{/each}
 			<!-- <button on:click={() => selectWorld()}>Verden</button> -->
@@ -75,14 +75,14 @@
 			<div class="subregions">
 				{#if !subregions}
 					<button on:click={() => subregions = !subregions }>
-						Vis regioner
+						Show regions
 					</button>
 				{/if}
 				{#if subregions}
-				Velg en region:
+				Chose a region:
 				{#each sorted as region} 
 					<button on:click={() => selectRegion(region, true)}>
-						{oversettelse(region, true)[0].norsk}
+						{region}
 						<!-- {region} -->
 					</button>
 				{/each}
@@ -93,14 +93,14 @@
 		<div class="control-section">
 			<Gjennomsnitter />
 		</div>
-		<label for="skala">Skala: 
+		<label for="skala">Scale: 
 			<select id="skala" bind:value={$minidaySettings.skala}>
 				{#each skalaSelect as {label, value}}
 					<option value={value}>{label}</option>
 				{/each}
 			</select>
 		</label>
-		<label>Oversatt navn: <input type="checkbox" bind:checked={$minidaySettings.navnOversatt}></label>
+		<label>Translate countries: <input type="checkbox" bind:checked={$minidaySettings.navnOversatt}></label>
 
 		<!-- broken: -->		
 		<!-- <label>Sortert: <input type="checkbox" bind:checked={isSorted}></label> -->

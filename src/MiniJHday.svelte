@@ -5,6 +5,7 @@
 	import { uniques } from 'layercake';
 	
 	import norsk from './data/countries/countries_no.json'
+	import engelsk from './data/countries/countries_en.json'
 	
 	import { computeMovingAverage, cutData } from './utils/functions.js'
 	
@@ -39,6 +40,7 @@
 		return Number.parseFloat(((avg / pop)).toPrecision(3)*1000000).toFixed()
 	}
 	const oversettelse = norsk.filter(i => i.alpha3 === country)
+	const oversettelse_en = engelsk.filter(i => i.alpha3 === country)
 	
 	
 	let population
@@ -75,6 +77,7 @@
 	onDestroy( () => {
 		console.log('Fjerna ', country)
 		delete $minidayStore[country]
+		$minidayStore = $minidayStore
 		// $minidayStore = $minidayStore.filter((n) => {return n.id != country})
 	})
 	
@@ -125,7 +128,7 @@
 	</div>
 	<div class="text">
 		{#if $minidaySettings.navnOversatt}
-			<h3 class="name">{oversettelse[0].name}</h3>
+			<h3 class="name">{oversettelse_en[0].name}</h3>
 		{:else}
 			<h3 class="name">{cData.nativeName}</h3>
 		{/if}
