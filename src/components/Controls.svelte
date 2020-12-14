@@ -65,13 +65,13 @@
 		<!-- <p><span>Definer tidsramme og periode for glidende gjennomsnitt med kontrollene over.</span></p> -->
 
 		<div class="selectregions">
-			Chose a continent:
+			Choose an area:
+			<button on:click={() => selectWorld()}>The world</button>
 			{#each regions.meta.regions as region} 
 			<button on:click={() => selectRegion(region, false)}>
 				{region}
 			</button>
 			{/each}
-			<button on:click={() => selectWorld()}>The world</button>
 			<!-- eller legg til/fjern land selv i boksen under grafene. <br> -->
 			<div class="subregions">
 				{#if !subregions}
@@ -80,7 +80,7 @@
 					</button>
 				{/if}
 				{#if subregions}
-				Chose a region:
+				Choose a region:
 				{#each sorted as region} 
 					<button on:click={() => selectRegion(region, true)}>
 						{region}
