@@ -12,7 +12,7 @@
     return order
   }
   
-  $: offset = convert(labelValue)
+  $: offset = labelValue < 1 ? .01 : convert(labelValue)
 
   const { data, x, y, xScale, yScale, xRange, yRange, xGet, yGet } = getContext('LayerCake');
   /* --------------------------------------------
