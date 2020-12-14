@@ -16,7 +16,7 @@
 	const skalaSelect = [
 		{ label: "Individual (absolute)", value: 1 },
 		{ label: "Shared absolute", value: 2 },
-		{ label: "Shared relative", value: 3 },
+		{ label: "Shared relative (p. 100k)", value: 3 },
 	]
 	
 	

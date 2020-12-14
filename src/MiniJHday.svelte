@@ -37,7 +37,7 @@
 	const stroke = highlightColor;
 	
 	const insidens = function (avg, pop) {
-		return Number.parseFloat(((avg / pop)).toPrecision(3)*1000000).toFixed()
+		return Number.parseFloat(((avg / pop)).toPrecision(3)*100000).toFixed()
 	}
 	const oversettelse = norsk.filter(i => i.alpha3 === country)
 	const oversettelse_en = engelsk.filter(i => i.alpha3 === country)
