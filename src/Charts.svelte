@@ -23,10 +23,11 @@
 	let defaults = [{label: "Norge", value: "nor"}, {label: "Storbritannia", value: "gbr"}, {label: "USA", value: "usa"}, {label: "Tyskland", value: "deu"}, {label: "Frankrike", value: "fra"}]
 
 	onMount(()=>{
-		$minidayCharts.push(...defaults)
+		$minidayCharts.push(...defaults);
+		$minidayCharts = $minidayCharts
 	})
 	
-
+console.log($minidayCharts)
 </script>
 
 
@@ -35,10 +36,10 @@
 
 
 <Controls>
-	{#if $minidayCharts}
+	{#if $minidayCharts[0]}
 	<section class="minidays">
 			{#each $minidayCharts as country (country.value)}
-				<Minidays country={country.value} {highlightColor} />
+				<Minidays country={country.value} />
 			{/each}
 	</section>
 	{/if}

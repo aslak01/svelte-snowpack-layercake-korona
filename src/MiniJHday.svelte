@@ -2,17 +2,14 @@
 	// MINIDAYS
 	import { onMount, onDestroy } from 'svelte';
 	import { minidayStore, minidaySettings, minidayCopy } from './utils/store.js';
-	import { LayerCake, ScaledSvg, uniques, Html } from 'layercake';
-	import { scaleBand } from 'd3-scale';
+	import { uniques } from 'layercake';
 	
 	import norsk from './data/countries/countries_no.json'
 	
 	import { computeMovingAverage, cutData } from './utils/functions.js'
 	
-	import Line from './components/charts/Line.svelte';
-	import Area from './components/charts/Area.svelte';	
-	import Label from './components/charts/Label.svelte';	
-	import Tooltip from './components/charts/ShTt2.svelte'
+	import MiniLine from './components/charts/MiniLineCh.svelte'
+	
 	
 	export let data
 	export let cData
@@ -23,7 +20,7 @@
 	let highlightColor = $minidaySettings.color;
 	$: skala = $minidaySettings.skala;
 
-	let index;
+	// let index;
 
 	let max
 	let shavedData
@@ -87,93 +84,40 @@
 	<div class="chart">
 		<div class="chart-container">
 			{#if skala == 1}
-				<LayerCake
-					percentRange={true}
-					x='date'
-					y='avg'
+				<MiniLine
 					data={shavedData}
-					yDomain={[0, max]}
+					{xKey} {yKey}
 					xDomain={mvUniqueDates}
-					xScale={scaleBand()}
-				>
-					<ScaledSvg>
-						<Line
-							{stroke}
-							{strokeWidth}
-						/>
-						<Area 
-							fill={stroke}
-						/>
-					</ScaledSvg>
-					<Html>
-						<Label
-							labelValue={currAvg}
-						/>
-						<Tooltip 
-							dataset={updShv}
-						/> 
-					</Html>
-				</LayerCake>
+					yMax={max}
+					{stroke} {strokeWidth}
+					labels={currAvg}
+					ttData={updShv}
+				/>
 				{:else if skala == 2}
-				{#await $minidaySettings.aMax}
-					<LayerCake
-						percentRange={true}
-						x={xKey}
-						y={yKey}
+				{#await $minidaySettings.aMax}...{:then absMax}
+					<MiniLine
 						data={shavedData}
-						yDomain={[0, $minidaySettings.aMax]}
+						{xKey} {yKey}
 						xDomain={mvUniqueDates}
-						xScale={scaleBand()}
-					>
-						<ScaledSvg>
-							<Line
-								{stroke}
-								{strokeWidth}
-							/>
-							<Area 
-								fill={stroke}
-							/>
-						</ScaledSvg>
-						<Html>
-							<Label
-								labelValue={currAvg}
-							/>
-							<Tooltip 
-								dataset={updShv}
-							/> 
-						</Html>
-					</LayerCake>
+						yMax={absMax}
+						{stroke} {strokeWidth}
+						labels={currAvg}
+						ttData={updShv}
+					/>
 				{/await}
 				{:else}
 				{#await updShv}...{:then updShv}
 				{#await $minidaySettings.pMax}...{:then MdPmax}
-					<LayerCake
-						percentRange={true}
-						x={xKey}
-						y={pMilKey}
+					<MiniLine
 						data={updShv}
-						yDomain={[0, MdPmax]}
+						{xKey} 
+						yKey={pMilKey}
 						xDomain={mvUniqueDates}
-						xScale={scaleBand()}
-					>
-						<ScaledSvg>
-							<Line
-								{stroke}
-								{strokeWidth}
-							/>
-							<Area 
-								fill={stroke}
-							/>
-						</ScaledSvg>
-						<Html>
-							<Label
-								labelValue={currInsidens}
-							/>
-							<Tooltip 
-								dataset={updShv}
-							/> 
-						</Html>
-					</LayerCake>
+						yMax={MdPmax}
+						{stroke} {strokeWidth}
+						labels={currInsidens}
+						ttData={updShv}
+					/>
 				{/await}
 				{/await}
 			{/if}
