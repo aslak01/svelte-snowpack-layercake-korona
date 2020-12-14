@@ -37,8 +37,9 @@
 	}
 	const selectWorld = function () {
 		$minidayCharts = []
+		console.log($minidayCharts)
 		let result = regions.data.map(obj => {
-			return obj.value
+			return obj
 		})
 		let uniq = [...new Set(result)];
 		console.log(uniq)
@@ -70,7 +71,7 @@
 				{region}
 			</button>
 			{/each}
-			<!-- <button on:click={() => selectWorld()}>Verden</button> -->
+			<button on:click={() => selectWorld()}>The world</button>
 			<!-- eller legg til/fjern land selv i boksen under grafene. <br> -->
 			<div class="subregions">
 				{#if !subregions}

@@ -16,7 +16,7 @@
 	$: $minidaySettings.pMax = pMmax[0] != undefined ? Math.max.apply(Math, pMmax) : undefined;
 	$: $minidaySettings.navnOversatt = true;
 	
-	let defaults = [{label: "Norway", value: "nor"}, {label: "United Kingdom of Great Britain and Northern Ireland", value: "gbr"}, {label: "USA", value: "usa"}, {label: "Germany", value: "deu"}, {label: "France", value: "fra"}]
+	let defaults = [{label: "Norway", value: "nor"}, {label: "United Kingdom", value: "gbr"}, {label: "USA", value: "usa"}, {label: "Germany", value: "deu"}, {label: "France", value: "fra"}]
 
 	onMount(()=>{
 		$minidayCharts.push(...defaults);
