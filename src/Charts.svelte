@@ -10,13 +10,12 @@
 	let pMmax
 	$: maximum = Object.values($minidayStore).map(v => v.aMax);
 	$: pMmax = Object.values($minidayStore).map(v => v.pMmax);
-	$: console.log($minidayStore)
+	// $: console.log($minidayStore)
 		// array of displayed countries
 	$: $minidaySettings.aMax = maximum[0] != undefined ? Math.max.apply(Math, maximum) : undefined;
 	$: $minidaySettings.pMax = pMmax[0] != undefined ? Math.max.apply(Math, pMmax) : undefined;
 	$: $minidaySettings.navnOversatt = true;
-	
-	$: console.log($minidaySettings)
+	// $: console.log($minidaySettings)
 	
 	let defaults = [
 		{value: "bel"}, 
@@ -34,9 +33,14 @@
 	]
 
 	onMount(()=>{
-		$minidayCharts.push(...defaults);
-		$minidayCharts = $minidayCharts
+		if ($minidayCharts.length < 1) { 
+			$minidayCharts.push(...defaults);
+			$minidayCharts = $minidayCharts
+		}
 	})
+
+
+	// $: console.log($minidayCharts)
 	
 </script>
 

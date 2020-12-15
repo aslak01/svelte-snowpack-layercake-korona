@@ -1,7 +1,7 @@
 <script>
 	// MINIDAYS
 	import { onMount, onDestroy } from 'svelte';
-	import { minidayStore, minidaySettings, minidayCopy } from './utils/store.js';
+	import { minidayStore, minidaySettings, minidayCharts } from './utils/store.js';
 	import { uniques } from 'layercake';
 	
 	import norsk from './data/countries/countries_no.json'
@@ -74,6 +74,13 @@
 	$: $minidaySettings.max.push(max)
 
 
+console.log("country", country)
+	let destroy = () => {
+		console.log('Fjerna ', country)
+		$minidayCharts = $minidayCharts.filter(function(value){
+			if (value.value != country) return value
+		})	
+	}
 	onDestroy( () => {
 		console.log('Fjerna ', country)
 		delete $minidayStore[country]
@@ -84,6 +91,8 @@
 </script>
 
 <article class="enhet">
+	<button class="del" on:click={destroy}>X</button>
+
 	<div class="chart">
 		<div class="chart-container">
 			{#if skala == 1}
@@ -179,5 +188,14 @@
 		position: absolute;
 		top: .8rem;
 		right: 0;
+	}
+	.del {
+		position: absolute;
+		left: 0px;
+		top: -10px;
+		font-size: .6rem;
+		background: transparent;
+		border: 0;
+		padding: 0.2rem;
 	}
 </style>
