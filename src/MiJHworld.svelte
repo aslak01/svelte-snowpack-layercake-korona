@@ -1,20 +1,14 @@
 <script>
-	// MINIDAYS
-	import { onDestroy } from 'svelte';
-	import { minidayStore, minidaySettings, minidayCharts } from './utils/store.js';
-	import { uniques } from 'layercake';
-	
-	// import norsk from './data/countries/countries_no.json'
-	import engelsk from './data/countries/countries_en.json'
-	
+	import { onMount } from 'svelte';
+	import { minidaySettings } from './utils/store.js';
+	import { uniques } from 'layercake';	
 	import { computeMovingAverage, cutData } from './utils/functions.js'
-	
 	import MiniLine from './components/charts/MiniLineCh.svelte'
 	
 	
 	export let data
-	export let cData
-	export let country
+	export let worldPop
+	
 	$: range = $minidaySettings.range;
 	$: start = $minidaySettings.cut.start;
 	$: end = $minidaySettings.cut.end;
@@ -38,28 +32,24 @@
 	
 	const insidens = function (avg, pop) {
 		return Number.parseFloat(((avg / pop)).toPrecision(3)*100000).toFixed()
-	}
-	// const oversettelse = norsk.filter(i => i.alpha3 === country)
-	const oversettelse_en = engelsk.filter(i => i.alpha3 === country)
-	
-	
-	let population
-	$: population = cData.population
-	
+	}	
+		
 	$: MovingAverage = computeMovingAverage(data.data.new, range, xKey, avgKey, yKey);
+	
 	$: shavedData = cutData(MovingAverage, start, end)
+	
 	$: currAvgIndex = shavedData.map(d => d[yKey] !== undefined).lastIndexOf(true)
 	
 	$: currAvg = currAvgIndex > 0 ? shavedData[currAvgIndex][yKey] : false
-	$: currInsidens = insidens(currAvg, population)
 	
 	$: max = Math.max.apply(Math, shavedData.map(d => d[yKey]))
 	
 	$: updShv = shavedData.map(v => ({
 		...v, pmil: parseInt(insidens(v[yKey], population))
 		}))
-
-	
+		
+	$: now = shavedData[shavedData.length-1].avg
+	$: pMnow = insidens(shavedData[shavedData.length-1].avg, population)
 	
 	$: pMmax = Math.max.apply(Math, shavedData.map(d => insidens(d[yKey], population)))
 
@@ -67,12 +57,13 @@
  $: $minidayCharts.filter(v => v.value === country).map(i => {
 	 i.pMmax = pMmax, 
 	 i.max = max,	 
-	 i.pMnow = currInsidens,
-	 i.now = currAvg })
+	 i.pMnow = pMnow,
+	 i.now = now })
 	 $minidayCharts = $minidayCharts
 	
 	$: mvUniqueDates = uniques(shavedData, xKey)
 
+	$: currInsidens = insidens(currAvg, population)
 	
 	let recentData
 	$: recentData = { id: country, aMax: max, pMmax }

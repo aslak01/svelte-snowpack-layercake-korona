@@ -1,5 +1,6 @@
 <script>
 	import Charts from './Charts.svelte';
+	import MiniWorld from './components/MiniWorld.svelte'
 </script>
 
 <main>
@@ -7,6 +8,7 @@
 <article class="text">
 	<h1 class="header">Corona virus in the world</h1>
 </article>
+<!-- <MiniWorld /> -->
 </header>
 
 <section>
