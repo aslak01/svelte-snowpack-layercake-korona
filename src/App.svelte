@@ -8,7 +8,7 @@
 <article class="text">
 	<h1 class="header">Corona virus in the world</h1>
 </article>
-<!-- <MiniWorld /> -->
+<MiniWorld />
 </header>
 
 <section>

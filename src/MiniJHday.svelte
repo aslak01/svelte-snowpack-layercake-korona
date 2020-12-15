@@ -7,7 +7,7 @@
 	// import norsk from './data/countries/countries_no.json'
 	import engelsk from './data/countries/countries_en.json'
 	
-	import { computeMovingAverage, cutData } from './utils/functions.js'
+	import { computeMovingAverage, cutData, insidens } from './utils/functions.js'
 	
 	import MiniLine from './components/charts/MiniLineCh.svelte'
 	
@@ -36,9 +36,6 @@
 	const strokeWidth = 1
 	const stroke = highlightColor;
 	
-	const insidens = function (avg, pop) {
-		return Number.parseFloat(((avg / pop)).toPrecision(3)*100000).toFixed()
-	}
 	// const oversettelse = norsk.filter(i => i.alpha3 === country)
 	const oversettelse_en = engelsk.filter(i => i.alpha3 === country)
 	

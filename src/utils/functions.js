@@ -50,3 +50,7 @@ export function norskTall(tall) {
 }
 
 export const norskDato = d => new Date(d).toLocaleDateString('no-NO', {day: '2-digit', month: '2-digit', year: '2-digit'});
+
+export const insidens = function (avg, pop) {
+	return Number.parseFloat(((avg / pop)).toPrecision(3)*100000).toFixed()
+}
