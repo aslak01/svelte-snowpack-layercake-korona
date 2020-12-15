@@ -150,7 +150,7 @@ console.log("country", country)
 		position: relative;
 		width: 140px;
 		height: 100px;
-		margin: auto;
+		/* margin-right: auto; */
 		justify-content: center;
 	}
 	.chart {
