@@ -69,6 +69,7 @@
 	 i.max = max,	 
 	 i.pMnow = pMnow,
 	 i.now = now })
+	 $minidayCharts = $minidayCharts
 	
 	$: mvUniqueDates = uniques(shavedData, xKey)
 
@@ -158,7 +159,7 @@ console.log("country", country)
 <style>
 	.enhet {
 		position: relative;
-		width: 140px;
+		width: 120px;
 		height: 100px;
 		/* margin-right: auto; */
 		justify-content: center;
@@ -189,6 +190,7 @@ console.log("country", country)
 		font-weight: normal;
 		font-size: .8rem;
 		margin: 0;
+		max-width: 110px;
 		/* margin-left: 5px; */
 
 		/* white-space: nowrap; */
@@ -213,6 +215,7 @@ console.log("country", country)
 		border-radius: 3px;
 		text-align: center;
 		line-height: .6rem;
+		color: #999;
 	}
 	.del:hover {
 		background: tomato;
