@@ -19,6 +19,13 @@
 		{ label: "Shared relative (p. 100k)", value: 3 },
 	]
 	
+	const sortSelect = [
+		{ label: "Current (p. 100k)", value: "pMnow" },
+		{ label: "Current (absolute)", value: "now" },
+		{ label: "Peak (p. 100k)", value: "pMmax" },
+		{ label: "Peak (absolute)", value: "max" },
+	]
+	
 	
 	
 	const oversettelse = function(region, sub) {
@@ -55,6 +62,8 @@
 					s2 = b.split(' ')[1];
 		return (s1 || a).localeCompare(s2 || b)
 	});
+	
+	
 	
 </script>
 
@@ -97,6 +106,13 @@
 		<label for="skala">Scale: 
 			<select id="skala" bind:value={$minidaySettings.skala}>
 				{#each skalaSelect as {label, value}}
+					<option value={value}>{label}</option>
+				{/each}
+			</select>
+		</label>
+		<label for="skala">Sort: 
+			<select id="sort" bind:value={$minidaySettings.sort}>
+				{#each sortSelect as {label, value}}
 					<option value={value}>{label}</option>
 				{/each}
 			</select>

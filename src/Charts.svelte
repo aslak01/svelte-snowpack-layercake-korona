@@ -39,16 +39,17 @@
 		}
 	})
 
-
-	// $: console.log($minidayCharts)
+	$: sortKey = $minidaySettings.sort
+	$: sortedCharts = $minidayCharts.sort((a, b) => b[sortKey] - a[sortKey]);
+	$: sortedCharts = sortedCharts
 	
 </script>
 
 
 <Controls>
-	{#if $minidayCharts[0]}
+	{#if sortedCharts[0]}
 	<section class="minidays">
-			{#each $minidayCharts as country (country.value)}
+			{#each sortedCharts as country (country.value)}
 				<Minidays country={country.value} />
 			{/each}
 	</section>

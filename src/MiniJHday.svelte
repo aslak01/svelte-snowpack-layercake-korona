@@ -56,10 +56,19 @@
 	$: updShv = shavedData.map(v => ({
 		...v, pmil: parseInt(insidens(v[yKey], population))
 		}))
-	
+		$: console.log(updShv[updShv.length -1])
+		
+	$: now = shavedData[shavedData.length-1].avg
+	$: pMnow = insidens(shavedData[shavedData.length-1].avg, population)
 	
 	$: pMmax = Math.max.apply(Math, shavedData.map(d => insidens(d[yKey], population)))
-	
+
+// add values to sort by
+ $: $minidayCharts.filter(v => v.value === country).map(i => {
+	 i.pMmax = pMmax, 
+	 i.max = max,	 
+	 i.pMnow = pMnow,
+	 i.now = now })
 	
 	$: mvUniqueDates = uniques(shavedData, xKey)
 
@@ -72,6 +81,7 @@
 	$: $minidayStore[country] = recentData
 	$: $minidaySettings.max = []
 	$: $minidaySettings.max.push(max)
+	
 
 
 console.log("country", country)
@@ -91,7 +101,7 @@ console.log("country", country)
 </script>
 
 <article class="enhet">
-	<button class="del" on:click={destroy}>X</button>
+	<button class="del" on:click={destroy}>&#10005;</button>
 
 	<div class="chart">
 		<div class="chart-container">
@@ -189,13 +199,23 @@ console.log("country", country)
 		top: .8rem;
 		right: 0;
 	}
+	
 	.del {
 		position: absolute;
-		left: 0px;
-		top: -10px;
-		font-size: .6rem;
+		left: -15px;
+		bottom: 19px;
+		font-size: 1rem;
 		background: transparent;
 		border: 0;
-		padding: 0.2rem;
+		padding: .2rem;
+		padding-right: .15rem;
+		padding-bottom: .25rem;
+		border-radius: 3px;
+		text-align: center;
+		line-height: .6rem;
+	}
+	.del:hover {
+		background: tomato;
+		color: white;
 	}
 </style>
