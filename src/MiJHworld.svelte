@@ -121,15 +121,15 @@
 <style>
 	.enhet {
 		position: relative;
-		width: 120px;
-		height: 100px;
+		width: 300px;
+		height: 150px;
 		/* margin-right: auto; */
 		justify-content: center;
 	}
 	.chart {
 		position: relative;
-		width: 90px;
-		height: 60px;
+		width: 300px;
+		height: 120px;
 		padding-top: 0;
 		z-index: 10;
 		margin-left: 5px;

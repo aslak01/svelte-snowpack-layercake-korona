@@ -35,14 +35,13 @@
 	onMount(()=>{
 		if ($minidayCharts.length < 1) { 
 			$minidayCharts.push(...defaults);
-			$minidayCharts = $minidayCharts
 		}
 	})
 
 	$: sortKey = $minidaySettings.sort
 	$: sortedCharts = $minidayCharts.sort((a, b) => b[sortKey] - a[sortKey]);
 	$: sortedCharts = sortedCharts
-	
+	$: $minidayCharts = $minidayCharts
 </script>
 
 
@@ -58,10 +57,10 @@
 
 
 <!-- debug buttons -->
-<!-- <button on:click={console.log($minidayStore)}>MinidayStore</button>
+<button on:click={console.log($minidayStore)}>MinidayStore</button>
 <button on:click={console.log($minidaySettings)}>minidaySettings</button>
-<button on:click={console.log($minidayCharts)}>minidayCharts</button> -->
-
+<button on:click={console.log($minidayCharts)}>minidayCharts</button>
+<button on:click={$minidayCharts = $minidayCharts}>minidayCharts = minidayCharts</button>
 
 <style>
 

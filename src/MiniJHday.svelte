@@ -1,6 +1,6 @@
 <script>
 	// MINIDAYS
-	import { onDestroy } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { minidayStore, minidaySettings, minidayCharts } from './utils/store.js';
 	import { uniques } from 'layercake';
 	
@@ -23,7 +23,6 @@
 
 	// let index;
 
-	let max
 	let shavedData
 	let currAvgIndex
 	let MovingAverage;
@@ -39,6 +38,16 @@
 	// const oversettelse = norsk.filter(i => i.alpha3 === country)
 	const oversettelse_en = engelsk.filter(i => i.alpha3 === country)
 	
+	let oldpMmax = null
+	let oldmax = null
+	let oldcurrInsidens = null
+	let oldcurrAvg = null
+	
+	let pMmax = null
+	let max = null
+	let currInsidens = null
+	let currAvg = null
+	
 	
 	let population
 	$: population = cData.population
@@ -48,26 +57,37 @@
 	$: currAvgIndex = shavedData.map(d => d[yKey] !== undefined).lastIndexOf(true)
 	
 	$: currAvg = currAvgIndex > 0 ? shavedData[currAvgIndex][yKey] : false
-	$: currInsidens = insidens(currAvg, population)
-	
+	$: currInsidens = parseInt(insidens(currAvg, population))
 	$: max = Math.max.apply(Math, shavedData.map(d => d[yKey]))
+	$: pMmax = Math.max.apply(Math, shavedData.map(d => insidens(d[yKey], population)))
 	
 	$: updShv = shavedData.map(v => ({
 		...v, pmil: parseInt(insidens(v[yKey], population))
 		}))
-
-	
-	
-	$: pMmax = Math.max.apply(Math, shavedData.map(d => insidens(d[yKey], population)))
-
+	$: if (oldpMmax != pMmax && oldmax != max && oldcurrInsidens != currInsidens && oldcurrAvg != currAvg) {
+		oldpMmax = pMmax
+		oldmax = max
+		oldcurrInsidens = currInsidens
+		oldcurrAvg = currAvg
+		$minidayCharts
+		.filter(v => v.value === country).map(i => {
+			 i.pMmax = pMmax, 
+			 i.max = max,	 
+			 i.pMnow = currInsidens,
+			 i.now = currAvg
+		})
+		$minidayCharts = $minidayCharts
+	}
 // add values to sort by
- $: $minidayCharts.filter(v => v.value === country).map(i => {
-	 i.pMmax = pMmax, 
-	 i.max = max,	 
-	 i.pMnow = currInsidens,
-	 i.now = currAvg })
-	 $minidayCharts = $minidayCharts
-	
+ // $minidayCharts
+	// .filter(v => v.value === country).map(i => {
+	// 	 i.pMmax = pMmax, 
+	// 	 i.max = max,	 
+	// 	 i.pMnow = currInsidens,
+	// 	 i.now = currAvg
+	// })
+	// $minidayCharts = $minidayCharts
+
 	$: mvUniqueDates = uniques(shavedData, xKey)
 
 	
