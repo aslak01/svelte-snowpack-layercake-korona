@@ -107,7 +107,7 @@
 					yMax={max}
 					{stroke} {strokeWidth}
 					labels={currAvg}
-					ttData={updShv}
+					ttData={shavedData}
 				/>
 				{:else if skala == 2}
 				{#await $minidaySettings.aMax}...{:then absMax}
@@ -118,7 +118,7 @@
 						yMax={absMax}
 						{stroke} {strokeWidth}
 						labels={currAvg}
-						ttData={updShv}
+						ttData={shavedData}
 					/>
 				{/await}
 				{:else}

@@ -8,16 +8,33 @@
 	
 	export let data
 	export let worldPop
-	console.log(data.cases)
-	let cases = [] 
-	Object.entries(data.cases)
-		.forEach(([key, value]) => {
-			// console.log(key, value, index)
-		cases.push({
-			date: key,
-			cases: value
-		})
-	});
+	// console.log(data.cases)
+	let cases = []
+	let values = []
+	
+	function prepData () {
+		Object.entries(data.cases)
+			.forEach(([key, value]) => {
+				cases.push({
+					date: new Date(key),
+					total: value
+				});
+		});
+		Object.values(data.cases)
+			.forEach(v => {
+				values.push(v)
+			})
+	}
+	prepData();
+
+	function addNews() {
+		cases = cases.flatMap((v, i) => ({
+				...v,
+				new: values[i-1] ? v.total - values[i-1] : v.total
+			})
+		)
+	}
+	addNews();
 	console.log(cases)
 	
 	$: range = $minidaySettings.range;
@@ -41,18 +58,24 @@
 	const strokeWidth = 1
 	const stroke = highlightColor;
 			
-	// $: MovingAverage = computeMovingAverage(data.data.new, range, xKey, avgKey, yKey);
-	// $: shavedData = cutData(MovingAverage, start, end)
-	// $: currAvgIndex = shavedData.map(d => d[yKey] !== undefined).lastIndexOf(true)
-	// $: currAvg = currAvgIndex > 0 ? shavedData[currAvgIndex][yKey] : false
-	// $: currInsidens = insidens(currAvg, population)
-	// $: max = Math.max.apply(Math, shavedData.map(d => d[yKey]))
-	// $: updShv = shavedData.map(v => ({
-	// 	...v, pmil: parseInt(insidens(v[yKey], population))
-	// 	}))
-	// $: mvUniqueDates = uniques(shavedData, xKey)
+	$: MovingAverage = computeMovingAverage(cases, range, xKey, avgKey, yKey);
+	$: shavedData = cutData(MovingAverage, start, end)
+	$: currAvgIndex = shavedData.map(d => d[yKey] !== undefined).lastIndexOf(true)
+	$: currAvg = currAvgIndex > 0 ? shavedData[currAvgIndex][yKey] : false
+	$: currInsidens = currAvgIndex > 0 ? updShv[currAvgIndex][pMilKey] : false
 	
+	$: updShv = shavedData.map(v => ({
+		...v, pmil: parseInt(insidens(v[yKey], worldPop))
+		}))
+
 	
+	//max avg
+	$: max = Math.max.apply(Math, shavedData.map(d => d[yKey]))
+	$: maxPm = Math.max.apply(Math, updShv.map(d => d[pMilKey]))
+	
+	$: mvUniqueDates = uniques(shavedData, xKey)
+	
+	$: console.log(MovingAverage, shavedData)
 	
 	
 	
@@ -60,11 +83,15 @@
 		
 
 </script>
+<div class="chartdescription">
+{#if skala === 3}Daily new cases per 100 000 globally:
+{:else}Daily new cases reported globally:{/if}
+</div>
 
-<!-- <article class="enhet">
+<article class="enhet">
 	<div class="chart">
 		<div class="chart-container">
-			{#if skala == 1}
+			{#if skala != 3}
 				<MiniLine
 					data={shavedData}
 					{xKey} {yKey}
@@ -72,40 +99,24 @@
 					yMax={max}
 					{stroke} {strokeWidth}
 					labels={currAvg}
-					ttData={updShv}
+					ttData={shavedData}
 				/>
-				{:else if skala == 2}
-				{#await $minidaySettings.aMax}...{:then absMax}
-					<MiniLine
-						data={shavedData}
-						{xKey} {yKey}
-						xDomain={mvUniqueDates}
-						yMax={absMax}
-						{stroke} {strokeWidth}
-						labels={currAvg}
-						ttData={updShv}
-					/>
-				{/await}
 				{:else}
-				{#await updShv}...{:then updShv}
-				{#await $minidaySettings.pMax}...{:then MdPmax}
 					<MiniLine
 						data={updShv}
 						{xKey} 
 						yKey={pMilKey}
 						xDomain={mvUniqueDates}
-						yMax={MdPmax}
+						yMax={maxPm}
 						{stroke} {strokeWidth}
 						labels={currInsidens}
 						ttData={updShv}
 					/>
-				{/await}
-				{/await}
 			{/if}
 		</div>
 	</div>
 
-</article> --> 
+</article> 
 
 <style>
 	.enhet {
@@ -128,25 +139,7 @@
 		width: 100%;
 		height: 100%;
 	}
-
-	
-	.del {
-		position: absolute;
-		left: -15px;
-		bottom: 19px;
-		font-size: 1rem;
-		background: transparent;
-		border: 0;
-		padding: .2rem;
-		padding-right: .15rem;
-		padding-bottom: .25rem;
-		border-radius: 3px;
-		text-align: center;
-		line-height: .6rem;
-		color: #999;
-	}
-	.del:hover {
-		background: tomato;
-		color: white;
+	.chartdescription {
+		margin-bottom: 1rem;
 	}
 </style>

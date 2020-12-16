@@ -44,12 +44,12 @@
 	}
 	const selectWorld = function () {
 		$minidayCharts = []
-		console.log($minidayCharts)
+		// console.log($minidayCharts)
 		let result = regions.data.map(obj => {
 			return obj
 		})
 		let uniq = [...new Set(result)];
-		console.log(uniq)
+		// console.log(uniq)
 		$minidayCharts = uniq
 	}
 	
