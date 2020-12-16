@@ -35,7 +35,7 @@
 		)
 	}
 	addNews();
-	console.log(cases)
+	// console.log(cases)
 	
 	$: range = $minidaySettings.range;
 	$: start = $minidaySettings.cut.start;
@@ -75,7 +75,7 @@
 	
 	$: mvUniqueDates = uniques(shavedData, xKey)
 	
-	$: console.log(MovingAverage, shavedData)
+	// $: console.log(MovingAverage, shavedData)
 	
 	
 	
