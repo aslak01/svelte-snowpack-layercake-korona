@@ -119,44 +119,20 @@
 
 	<div class="chart">
 		<div class="chart-container">
-			{#if skala == 1}
-				<MiniLine
-					data={shavedData}
-					{xKey} {yKey}
-					xDomain={mvUniqueDates}
-					yMax={max}
-					{stroke} {strokeWidth}
-					labels={currAvg}
-					ttData={shavedData}
-				/>
-				{:else if skala == 2}
 				{#await $minidaySettings.aMax}...{:then absMax}
-					<MiniLine
-						data={shavedData}
-						{xKey} {yKey}
-						xDomain={mvUniqueDates}
-						yMax={absMax}
-						{stroke} {strokeWidth}
-						labels={currAvg}
-						ttData={shavedData}
-					/>
-				{/await}
-				{:else}
-				{#await updShv}...{:then updShv}
 				{#await $minidaySettings.pMax}...{:then MdPmax}
-					<MiniLine
-						data={updShv}
-						{xKey} 
-						yKey={pMilKey}
-						xDomain={mvUniqueDates}
-						yMax={MdPmax}
-						{stroke} {strokeWidth}
-						labels={currInsidens}
-						ttData={updShv}
-					/>
-				{/await}
-				{/await}
-			{/if}
+
+				<MiniLine
+					data={updShv}
+					{xKey} 
+					yKey={ skala === 3 ? pMilKey : yKey }
+					xDomain={mvUniqueDates}
+					yMax={ skala === 3 ? MdPmax : skala === 2 ? absMax : max}
+					{stroke} {strokeWidth}
+					labels={skala === 3 ? currInsidens : currAvg}
+					ttData={updShv}
+				/>
+				{/await}{/await}
 		</div>
 	</div>
 	<div class="text">
