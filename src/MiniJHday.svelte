@@ -49,10 +49,10 @@
 	let currAvg = null
 	
 	
-	let population
-	$: population = cData.population
+	let population = cData.population
 	
 	$: MovingAverage = computeMovingAverage(data.data.new, range, xKey, avgKey, yKey);
+	
 	$: shavedData = cutData(MovingAverage, start, end)
 	$: currAvgIndex = shavedData.map(d => d[yKey] !== undefined).lastIndexOf(true)
 	
@@ -70,12 +70,12 @@
 		oldcurrInsidens = currInsidens
 		oldcurrAvg = currAvg
 		$minidayCharts
-		.filter(v => v.value === country).map(i => {
-			 i.pMmax = pMmax, 
-			 i.max = max,	 
-			 i.pMnow = currInsidens,
-			 i.now = currAvg
-		})
+			.filter(v => v.value === country).map(i => {
+				 i.pMmax = pMmax, 
+				 i.max = max,	 
+				 i.pMnow = currInsidens,
+				 i.now = currAvg
+			})
 		$minidayCharts = $minidayCharts
 	}
 // add values to sort by
@@ -172,7 +172,7 @@
 <style>
 	.enhet {
 		position: relative;
-		width: 120px;
+		width: 160px;
 		height: 100px;
 		/* margin-right: auto; */
 		justify-content: center;

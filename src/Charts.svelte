@@ -13,7 +13,9 @@
 	// $: console.log($minidayStore)
 		// array of displayed countries
 	$: $minidaySettings.aMax = maximum[0] != undefined ? Math.max.apply(Math, maximum) : undefined;
+	
 	$: $minidaySettings.pMax = pMmax[0] != undefined ? Math.max.apply(Math, pMmax) : undefined;
+	
 	$: $minidaySettings.navnOversatt = true;
 	// $: console.log($minidaySettings)
 	
@@ -37,11 +39,17 @@
 			$minidayCharts.push(...defaults);
 		}
 	})
-
-	$: $minidayCharts = $minidayCharts
+	
 	$: sortKey = $minidaySettings.sort
+	let sortedChartsOld = $minidayCharts?.sort((a, b) => b[sortKey] - a[sortKey]);
 	$: sortedCharts = $minidayCharts.sort((a, b) => b[sortKey] - a[sortKey]);
-	$: sortedCharts = sortedCharts
+	
+	$: if (sortedCharts != sortedChartsOld) {
+		$minidayCharts = $minidayCharts
+		sortedCharts = $minidayCharts.sort((a, b) => b[sortKey] - a[sortKey]);
+		sortedChartsOld = sortedCharts
+	}
+	
 </script>
 
 

@@ -28,9 +28,9 @@
 	
 	
 	
-	const oversettelse = function(region, sub) {
-		return sub ? norskeRegioner.subregions.filter(i => i.subregion === region) : norskeRegioner.regions.filter(i => i.region === region)
-	}
+	// const oversettelse = function(region, sub) {
+	// 	return sub ? norskeRegioner.subregions.filter(i => i.subregion === region) : norskeRegioner.regions.filter(i => i.region === region)
+	// }
 	
 	const selectRegion = function (region, sub) {
 		let result = regions.data.filter(obj => {
@@ -39,18 +39,23 @@
 			}
 			return obj.region === region
 		})
-		$minidayCharts = []
+		// $minidayCharts = []
 		$minidayCharts = result
+		$minidayCharts = $minidayCharts
 	}
 	const selectWorld = function () {
-		$minidayCharts = []
+		// $minidayCharts = []
 		// console.log($minidayCharts)
 		let result = regions.data.map(obj => {
-			return obj
+			if ($minidayCharts.findIndex(v => v.value === obj.value) === -1) {
+				$minidayCharts.push(obj)
+			}
+			// return obj
 		})
-		let uniq = [...new Set(result)];
+		$minidayCharts = $minidayCharts
+		// let uniq = [...new Set(result)];
 		// console.log(uniq)
-		$minidayCharts = uniq
+		// $minidayCharts = uniq
 	}
 	
 	// sortere subregioner
