@@ -1,4 +1,4 @@
-<script>
+<script> 
 	import { onMount } from 'svelte';
 	import { minidayStore, minidaySettings, minidayCharts } from './utils/store.js';
 	import Minidays from './components/Minidays.svelte';
@@ -55,11 +55,11 @@
 
 <Controls>
 	{#if sortedCharts[0]}
-	<section class="minidays">
+	<ol class="minidays">
 			{#each sortedCharts as country (country.value)}
 				<Minidays country={country.value} />
 			{/each}
-	</section>
+	</ol>
 	{/if}
 </Controls>
 
@@ -70,7 +70,7 @@
 <button on:click={console.log($minidayCharts)}>minidayCharts</button>
 <button on:click={$minidayCharts = $minidayCharts}>minidayCharts = minidayCharts</button> -->
 
-<style>
+<style> 
 
 .minidays {
 	display: flex;
@@ -81,6 +81,7 @@
 	flex-wrap: wrap;
 	justify-items: space-evenly safe;
 	padding: 1rem 0;
+	margin: 5rem auto;
 }
 
 </style>

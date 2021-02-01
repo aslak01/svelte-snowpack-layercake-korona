@@ -1,4 +1,4 @@
-<script>
+<script> 
 	// MINIDAYS
 	import { onMount, onDestroy } from 'svelte';
 	import { minidayStore, minidaySettings, minidayCharts } from './utils/store.js';
@@ -99,6 +99,14 @@
 	$: $minidaySettings.max = []
 	$: $minidaySettings.max.push(max)
 	
+	let hovering
+	function enter() {
+		hovering = true;
+	}
+	function leave() {
+		hovering = false;
+	}
+	
 	let destroy = () => {
 		console.log('Fjerna ', country)
 		$minidayCharts = $minidayCharts.filter(function(value){
@@ -114,9 +122,10 @@
 	
 </script>
 
-<article class="enhet">
-	<button class="del" on:click={destroy}>&#10005;</button>
-
+<li class="enhet" on:mouseenter={enter} on:mouseleave={leave}>
+	{#if hovering}
+		<button class="del" on:click={destroy}>&#10005;</button>
+	{/if}
 	<div class="chart">
 		<div class="chart-container">
 				{#await $minidaySettings.aMax}...{:then absMax}
@@ -143,9 +152,12 @@
 		{/if}
 		<!-- <span class="insidens">{currInsidens}</span> -->
 	</div>
-</article>
+</li>
 
-<style>
+<style> 
+	li {
+		font-size: .8rem;
+	}
 	.enhet {
 		position: relative;
 		width: 160px;
@@ -176,7 +188,7 @@
 		top: 5px;
 		left: 5px;
 		display: block;
-		font-weight: normal;
+		font-weight: 500;
 		font-size: .8rem;
 		margin: 0;
 		max-width: 110px;

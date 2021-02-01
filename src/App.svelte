@@ -25,15 +25,54 @@
 
 </main>
 
-<style>
+<style> 
+
+
+@font-face {
+	font-family: 'Eesti';
+	font-weight: 500;
+	font-style: normal;
+	src: url('/fonts/GT-Eesti-Pro-Text-Medium.woff2') format('woff2'),
+			 url('/fonts/GT-Eesti-Pro-Text-Medium.woff') format('woff'),
+			 url('/fonts/GT-Eesti-Pro-Text-Medium.otf')  format('opentype');
+}
+@font-face {
+	font-family: 'Eesti';
+	font-weight: 400;
+	font-style: normal;
+	src: url('/fonts/GT-Eesti-Pro-Text-Regular.woff2') format('woff2'),
+			 url('/fonts/GT-Eesti-Pro-Text-Regular.woff') format('woff'),
+			 url('/fonts/GT-Eesti-Pro-Text-Regular.otf')  format('opentype');
+}
+@font-face {
+	font-family: 'Eesti';
+	font-weight: 400;
+	font-style: italic;
+	src: url('/fonts/GT-Eesti-Pro-Text-Book-Italic.woff2') format('woff2'),
+			 url('/fonts/GT-Eesti-Pro-Text-Book-Italic.woff') format('woff'),
+			 url('/fonts/GT-Eesti-Pro-Text-Book-Italic.otf')  format('opentype');
+}
+@font-face {
+	font-family: 'Eesti';
+	font-weight: 700;
+	font-style: normal;
+	src: url('/fonts/GT-Eesti-Pro-Text-Bold.woff2') format('woff2'),
+			 url('/fonts/GT-Eesti-Pro-Text-Bold.woff') format('woff'),
+			 url('/fonts/GT-Eesti-Pro-Text-Bold.otf')  format('opentype');
+}
+
 
 :global(body) {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-		Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;	
+	/* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; */	
+	font-family: "Eesti";
 	color: #212312;
+}
+:global(input, button, select) {
+	font-family: "Eesti";
 }
 
 main {

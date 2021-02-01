@@ -1,4 +1,4 @@
-<script>
+<script> 
 import { getData } from '../utils/fetch.js';
 import { getData2 } from '../utils/fetch1.js';
 import MiniJHday from '../MiniJHday.svelte';
