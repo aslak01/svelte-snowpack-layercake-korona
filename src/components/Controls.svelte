@@ -146,7 +146,7 @@
 	{/await}
 </article> -->
 
-<style>
+<style> 
 label {
 	font-size: .8rem;
 }

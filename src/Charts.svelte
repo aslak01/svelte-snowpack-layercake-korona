@@ -76,7 +76,7 @@
 <style> 
 .septheheading {
 	margin-top: 4rem;
-	margin-left: -20px;
+	margin-left: -15px;
 	font-weight: 400;
 }
 .minidays {

@@ -94,6 +94,7 @@
 }
 
 :global(body) {
+	background: ghostwhite;	
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
@@ -111,12 +112,13 @@
 }
 
 main {
-	max-width: 100%; overflow-x: hidden;
-	background: ghostwhite;	
+	/* max-width: 100%; overflow-x: hidden; */
 	min-height: 100vh;
+	max-width: 1200px;
+	margin: 0 auto;
 }
 section, header, footer {
-	width: 80vw;
+	max-width: 80vw;
 	margin: 0 auto;
 }
 
@@ -131,7 +133,6 @@ section, header, footer {
 	
 	article.text {
 	width: 80vw;
-	max-width: 1200px;
 	margin: 0 auto;
 	height: auto;
 	padding-bottom: 1.5rem;
