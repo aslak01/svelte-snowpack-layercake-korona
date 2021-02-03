@@ -1,4 +1,4 @@
-<script>
+<script> 
 	import { getContext } from 'svelte';
 	import { quadtree } from 'd3-quadtree';
 
@@ -38,7 +38,7 @@
 
 </script>
 
-<style>
+<style> 
 	.bg {
 		position: absolute;
 		top: 0;

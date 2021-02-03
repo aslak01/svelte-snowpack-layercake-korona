@@ -60,7 +60,38 @@
 			 url('/fonts/GT-Eesti-Pro-Text-Bold.woff') format('woff'),
 			 url('/fonts/GT-Eesti-Pro-Text-Bold.otf')  format('opentype');
 }
+@font-face {
+	font-family: 'Kristal';
+	font-weight: 500;
+	font-style: normal;
+	src: url('/fonts/KristallNowPro-Medium.woff2') format('woff2'),
+			 url('/fonts/KristallNowPro-Medium.woff') format('woff'),
+			 url('/fonts/KristallNowPro-Medium.otf')  format('opentype');
+}
 
+@font-face {
+	font-family: 'Kristal';
+	font-weight: 400;
+	font-style: normal;
+	src: url('/fonts/KristallNowPro-Regular.woff2') format('woff2'),
+			 url('/fonts/KristallNowPro-Regular.woff') format('woff'),
+			 url('/fonts/KristallNowPro-Regular.otf')  format('opentype');
+}
+@font-face {
+	font-family: 'Dunbar';
+	font-weight: 700;
+	src: url('/fonts/Dunbar_Text-Bold.woff2') format('woff2'),
+			 url('/fonts/Dunbar_Text-Bold.woff') format('woff'),
+			 url('/fonts/Dunbar_Text-Bold.otf')  format('opentype');
+}
+
+@font-face {
+	font-family: 'Dunbar';
+	font-weight: 400;
+	src: url('/fonts/Dunbar_Text-Regular.woff2') format('woff2'),
+			 url('/fonts/Dunbar_Text-Regular.woff') format('woff'),
+			 url('/fonts/Dunbar_Text-Regular.otf')  format('opentype');
+}
 
 :global(body) {
 	padding: 0;
@@ -68,11 +99,15 @@
 	box-sizing: border-box;
 	/* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
 		Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; */	
-	font-family: "Eesti";
+	font-family: "Dunbar";
 	color: #212312;
 }
 :global(input, button, select) {
 	font-family: "Eesti";
+}
+:global(h1,h2) {
+	font-weight: 400;
+	font-family: Eesti;
 }
 
 main {

@@ -1,10 +1,10 @@
 dependencies:
-  svelte: 3.31.0
+  svelte: 3.32.1
 devDependencies:
   '@snowpack/plugin-dotenv': 2.0.5
-  '@snowpack/plugin-svelte': 3.5.2_rollup@2.34.2+svelte@3.31.0
+  '@snowpack/plugin-svelte': 3.5.2_rollup@2.34.2+svelte@3.32.1
   '@snowpack/web-test-runner-plugin': 0.1.5_2fdf90a5d98db0a6603ab9a270570f8f
-  '@testing-library/svelte': 3.0.0_svelte@3.31.0
+  '@testing-library/svelte': 3.0.0_svelte@3.32.1
   '@web/test-runner': 0.9.13_rollup@2.34.2
   carbon-icons-svelte: 10.21.0
   chai: 4.2.0
@@ -12,7 +12,7 @@ devDependencies:
   d3-quadtree: 2.0.0
   d3-scale: 3.2.3
   d3-shape: 2.0.0
-  layercake: 4.0.3_svelte@3.31.0
+  layercake: 4.0.3_svelte@3.32.1
   rollup: 2.34.2
   snowpack: 3.0.11
   svelte-select: 3.14.2
@@ -123,12 +123,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-y54lwYRDpTfDTU3uopHLND0DKIjjyWiYxhvOPfZvC4OpOd7UIRwMdSOd5XLZJPEBJ4BD38lDLiXh+ODfNDqhnQ==
-  /@snowpack/plugin-svelte/3.5.2_rollup@2.34.2+svelte@3.31.0:
+  /@snowpack/plugin-svelte/3.5.2_rollup@2.34.2+svelte@3.32.1:
     dependencies:
-      rollup-plugin-svelte: 7.1.0_rollup@2.34.2+svelte@3.31.0
-      svelte: 3.31.0
-      svelte-hmr: 0.12.5_svelte@3.31.0
-      svelte-preprocess: 4.6.5_svelte@3.31.0
+      rollup-plugin-svelte: 7.1.0_rollup@2.34.2+svelte@3.32.1
+      svelte: 3.32.1
+      svelte-hmr: 0.12.5_svelte@3.32.1
+      svelte-preprocess: 4.6.5_svelte@3.32.1
     dev: true
     peerDependencies:
       rollup: '*'
@@ -160,10 +160,10 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-0hhuJSmw/zLc6ewR9cVm84TehuTd7tbqBX9pRNSp8znJ9gTmSgesdbiGZtt8R6dL+2rgaPFp9Yjr7IU1HWm49w==
-  /@testing-library/svelte/3.0.0_svelte@3.31.0:
+  /@testing-library/svelte/3.0.0_svelte@3.32.1:
     dependencies:
       '@testing-library/dom': 7.29.0
-      svelte: 3.31.0
+      svelte: 3.32.1
     dev: true
     engines:
       node: '>= 8'
@@ -1579,10 +1579,10 @@ packages:
       node: ^4.8.4 || ^6.10.1 || ^7.10.1 || >= 8.1.4
     resolution:
       integrity: sha512-i/XJVOfPw7npbMv67+bOeXr3gPqOAw6uh5wFyNs3QvJ47tUx3M3V9rIE0//WytY42MKz4l/MXKyGkQ2LQTfLUQ==
-  /layercake/4.0.3_svelte@3.31.0:
+  /layercake/4.0.3_svelte@3.32.1:
     dependencies:
       d3-scale: 3.2.3
-      svelte: 3.31.0
+      svelte: 3.32.1
     dev: true
     peerDependencies:
       svelte: ^3.16.7
@@ -2024,12 +2024,12 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
-  /rollup-plugin-svelte/7.1.0_rollup@2.34.2+svelte@3.31.0:
+  /rollup-plugin-svelte/7.1.0_rollup@2.34.2+svelte@3.32.1:
     dependencies:
       require-relative: 0.8.7
       rollup: 2.34.2
       rollup-pluginutils: 2.8.2
-      svelte: 3.31.0
+      svelte: 3.32.1
     dev: true
     engines:
       node: '>=10'
@@ -2197,21 +2197,21 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==
-  /svelte-hmr/0.12.5_svelte@3.31.0:
+  /svelte-hmr/0.12.5_svelte@3.32.1:
     dependencies:
-      svelte: 3.31.0
+      svelte: 3.32.1
     dev: true
     peerDependencies:
       svelte: '>=3.19.0'
     resolution:
       integrity: sha512-AEPtbwF6h+B5jI/aQhvk61wXrW6bxOGQecI/GmRd+LCvg+s4P0VQ3Xseg18foAM6ZemBZrGCRCopeZZS4+X7cg==
-  /svelte-preprocess/4.6.5_svelte@3.31.0:
+  /svelte-preprocess/4.6.5_svelte@3.32.1:
     dependencies:
       '@types/pug': 2.0.4
       '@types/sass': 1.16.0
       detect-indent: 6.0.0
       strip-indent: 3.0.0
-      svelte: 3.31.0
+      svelte: 3.32.1
     dev: true
     engines:
       node: '>= 9.11.2'
@@ -2258,12 +2258,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-e4IgcLKi0fcOyM75EFfEtdMRf0hOm/W5XEh3RhPULEzxrI3yEPtfTIzu0x8S3gIWzSlQXfKN2G5WAg9Pql9xLA==
-  /svelte/3.31.0:
+  /svelte/3.32.1:
     dev: false
     engines:
       node: '>= 8'
     resolution:
-      integrity: sha512-r+n8UJkDqoQm1b+3tA3Lh6mHXKpcfOSOuEuIo5gE2W9wQYi64RYX/qE6CZBDDsP/H4M+N426JwY7XGH4xASvGQ==
+      integrity: sha512-j1KmD2ZOU0RGq1/STDXjwfh0/eJ/Deh2NXyuz1bpR9eOcz9yImn4CGxXdbSAN7cMTm9a7IyPUIbuBCzu/pXK0g==
   /table-layout/1.0.1:
     dependencies:
       array-back: 4.0.1
@@ -2488,6 +2488,6 @@ specifiers:
   layercake: ^4.0.3
   rollup: ^2.34.2
   snowpack: ^3.0.11
-  svelte: ^3.31.0
+  svelte: ^3.32.1
   svelte-select: ^3.14.2
   yootils: ^0.0.17

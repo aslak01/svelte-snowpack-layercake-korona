@@ -40,6 +40,8 @@
 		}
 	})
 	
+	// $: console.log($minidaySettings)
+	
 	$: sortKey = $minidaySettings.sort
 	let sortedChartsOld = $minidayCharts?.sort((a, b) => b[sortKey] - a[sortKey]);
 	$: sortedCharts = $minidayCharts.sort((a, b) => b[sortKey] - a[sortKey]);
@@ -55,6 +57,7 @@
 
 <Controls>
 	{#if sortedCharts[0]}
+	<h1 class="septheheading">Average positive Covid tests {#if $minidaySettings.skala === 3}per 100k{/if} the past {$minidaySettings.range} days</h1>
 	<ol class="minidays">
 			{#each sortedCharts as country (country.value)}
 				<Minidays country={country.value} />
@@ -71,7 +74,11 @@
 <button on:click={$minidayCharts = $minidayCharts}>minidayCharts = minidayCharts</button> -->
 
 <style> 
-
+.septheheading {
+	margin-top: 4rem;
+	margin-left: -20px;
+	font-weight: 400;
+}
 .minidays {
 	display: flex;
 	/* align-items: center; */
@@ -81,7 +88,7 @@
 	flex-wrap: wrap;
 	justify-items: space-evenly safe;
 	padding: 1rem 0;
-	margin: 5rem auto;
+	margin: 1rem auto;
 }
 
 </style>

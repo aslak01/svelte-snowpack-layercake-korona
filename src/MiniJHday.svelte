@@ -122,10 +122,19 @@
 	
 </script>
 
-<li class="enhet" on:mouseenter={enter} on:mouseleave={leave}>
-	{#if hovering}
-		<button class="del" on:click={destroy}>&#10005;</button>
-	{/if}
+<li on:mouseenter={enter} on:mouseleave={leave}>
+	<div class="enhet">
+	<div class="text">
+		{#if $minidaySettings.navnOversatt}
+			<h3 class="name">{oversettelse_en[0].name}</h3>
+		{:else}
+			<h3 class="name">{cData.nativeName}</h3>
+		{/if}
+		{#if hovering}
+			<button class="del" on:click={destroy}>&#10005;</button>
+		{/if}
+		<!-- <span class="insidens">{currInsidens}</span> -->
+	</div>
 	<div class="chart">
 		<div class="chart-container">
 				{#await $minidaySettings.aMax}...{:then absMax}
@@ -144,75 +153,89 @@
 				{/await}{/await}
 		</div>
 	</div>
-	<div class="text">
-		{#if $minidaySettings.navnOversatt}
-			<h3 class="name">{oversettelse_en[0].name}</h3>
-		{:else}
-			<h3 class="name">{cData.nativeName}</h3>
-		{/if}
-		<!-- <span class="insidens">{currInsidens}</span> -->
+
 	</div>
 </li>
 
 <style> 
 	li {
+		/* display: flex; */
 		font-size: .8rem;
+		/* list-style-position: inside; */
+		height: 115px;
+		width: 130px;
+		margin-right: 25px;
 	}
 	.enhet {
-		position: relative;
-		width: 160px;
+		width: 100px;
 		height: 100px;
+		/* padding: 15px; */
+		padding-top: 0;
+		position: relative;
+		/* top: -15px; */
+		/* margin-left: 10px; */
+		/* display: flex; */
 		/* margin-right: auto; */
-		justify-content: center;
+		/* justify-content: center; */
+		/* flex-direction: column; */
 	}
 	.chart {
-		position: relative;
-		width: 90px;
+		/* position: relative; */
+		width: 85px;
 		height: 60px;
 		padding-top: 0;
 		z-index: 10;
-		margin-left: 5px;
+		/* margin-left: 5px; */
 	}
 	.chart-container {
-		position: relative;
 		width: 100%;
 		height: 100%;
 	}
-	.text {
-		height: 30px;
-		position: relative;
-		width: 100%;
-	}
+	/* .text {
+		width: 100px;
+		height: 40px;
+	} */
 	.name {
-		position: absolute;
+		margin: 0;
+		/* margin-left: 5px; */
+		font-size: .8rem;
+		width: 90px;
+		height: 20px;
+		word-wrap: break-word;
+		font-weight: 400;
+		/* position: absolute;
+		top: 0;
+		left: 0; */
+		/* position: absolute;
 		top: 5px;
 		left: 5px;
 		display: block;
 		font-weight: 500;
 		font-size: .8rem;
 		margin: 0;
-		max-width: 110px;
+		max-width: 110px; */
 		/* margin-left: 5px; */
 
 		/* white-space: nowrap; */
 	}
-	.insidens {
+	/* .insidens {
 		font-size: .7rem;
 		position: absolute;
 		top: .8rem;
 		right: 0;
-	}
+	} */
 	
 	.del {
 		position: absolute;
-		left: -15px;
-		bottom: 19px;
-		font-size: 1rem;
+		right: 0;
+		top: 0;
+		font-size: .8rem;
 		background: transparent;
 		border: 0;
+		width: 1rem;
 		padding: .2rem;
-		padding-right: .15rem;
-		padding-bottom: .25rem;
+		/* padding-right: .15rem;
+		padding-bottom: .25rem; */
 		border-radius: 3px;
 		text-align: center;
 		line-height: .6rem;

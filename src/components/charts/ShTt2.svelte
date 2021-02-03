@@ -1,4 +1,4 @@
-<script>
+<script> 
   import { getContext } from 'svelte';
   import { norskTall, norskDato } from '../../utils/functions.js';
   import QuadTree from './QuadTree.percent-range.svelte';
@@ -28,9 +28,12 @@
   {/if}
 </QuadTree>
 
-<style>
+<style> 
   .ttp {
     font-size: .7rem;
+    position: absolute;
+    bottom: -30px;
+    
   }
 
   .dot {

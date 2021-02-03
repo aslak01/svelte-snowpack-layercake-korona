@@ -1,4 +1,4 @@
-<script>
+<script> 
 	import Gjennomsnitter from './Gjennomsnitter.svelte'
 	// import Select from 'svelte-select'
 
